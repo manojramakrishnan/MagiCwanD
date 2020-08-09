@@ -1,7 +1,11 @@
 package com.magicwand.service;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.magicwand.entity.Plan;
 import com.magicwand.entity.Usertype;
 import com.magicwand.repository.UsertypeRepository;
 /**
@@ -26,4 +30,27 @@ public class UsertypeService {
     public Usertype usertype(Usertype usrtype) {
         return repository.save(usrtype);
     }
+    
+    /**
+     * @implNote this service method takes care of fetching the Usertype details of a particular user.
+     * @param Usertype Model object
+     * @return the list of Usertype object of the passed usertype id in the request.
+     * 
+     */
+    
+    public Optional<Usertype> findByUsertypeId(Integer usertypeId) {
+    	return repository.findById(usertypeId);
+    }
+    
+	/**
+     * @implNote this service method takes care of fetching all the usertype details.
+     * @param none
+     * @return the list of all usertype data.
+     * 
+     */
+    public List<Usertype> findAllUsertypes() {
+    	return repository.findAll();
+    }
+
 }
+
