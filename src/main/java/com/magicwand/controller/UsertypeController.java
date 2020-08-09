@@ -1,9 +1,15 @@
 package com.magicwand.controller;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.magicwand.entity.Role;
 import com.magicwand.entity.Usertype;
 import com.magicwand.service.UsertypeService;
 
@@ -30,6 +36,27 @@ public class UsertypeController {
     public Usertype usertype(@RequestBody Usertype usrtype) {
         return service.usertype(usrtype);
     }
+    /**
+     * @apiNote This api method get the data of a particular usertype Id.
+     * @param Usertype Id Integer
+     * @return an Object of Usertype
+     */
+    @GetMapping("/getUserTypeById/{usertypeId}")
+    public Optional<Usertype> findUsertypeById(@PathVariable Integer usertypeId) {
+    	return service.findByUsertypeId(usertypeId);
+    }
+
+    /**
+     * @apiNote This api method fetch all the usertype data.
+     * @param none
+     * @return an List of Usertype object
+     */
+    @GetMapping("/getAllUserTypes")
+    public List<Usertype> findAllUsertypes() {
+    	return service.findAllUsertypes();
+    }
+
+    
 
 
 }
