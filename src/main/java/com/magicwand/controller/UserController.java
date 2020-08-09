@@ -1,7 +1,11 @@
 package com.magicwand.controller;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,6 +37,27 @@ public class UserController {
     public Registration register(@RequestBody Registration regn) {
         return service.register(regn);
     }
+    
+    /**
+     * @apiNote This api method get the details of registered user.
+     * @param Registration Model object
+     * @return an Object of Registration
+     */
+    @GetMapping("/findByRegId/{regnId}")
+    public List<Registration> findByReg_Id(@PathVariable Integer regnId) {
+    	return service.findByReg_Id(regnId);
+    }
+    
+    /**
+     * @apiNote This api method fetch all the registration details.
+     * @param none
+     * @return an list of Registrations
+     */
+    @GetMapping("/findAllRegistrations")
+    public Iterable<Registration> findAllRegistrations() {
+    	return service.findAllRegistrations();
+    }
+
 
     }
 

@@ -1,5 +1,7 @@
 package com.magicwand.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +31,29 @@ public class UserService {
     	regn.setPlan(regn.getPlan());
         return repository.save(regn);
     }
+    
+    /**
+     * @implNote this service method takes care of fetching the registered user details based on registration id.
+     * @param registration Model object
+     * @return the list of Registration object of the passed registration id in the request.
+     * 
+     */
+    //@Qualifier(value = "com.magicwand.repository.UserRepositoryImpl")
+    public List<Registration> findByReg_Id(Integer regnId) {
+    	System.err.println("regnid in controller"+regnId);
+    	return repository.findByReg_Id(regnId);
+    }
 
+    /**
+     * @implNote this service method takes care of fetching the registered user details.
+     * @param none
+     * @return the list of Registration object.
+     * 
+     */
+    
+    public Iterable<Registration> findAllRegistrations() {
+    	
+    	return repository.findAll();
+    }
    
 }

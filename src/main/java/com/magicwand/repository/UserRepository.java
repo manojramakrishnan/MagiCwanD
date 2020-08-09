@@ -1,10 +1,15 @@
 package com.magicwand.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
+
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 
 import com.magicwand.entity.Registration;
 
-public interface UserRepository extends JpaRepository<Registration,Integer> {
-    
+public interface UserRepository extends CrudRepository<Registration,Integer> {
+	
+	@Query("select r from Registration r join r.plan where r.id=:id")
+	public List<Registration> findByReg_Id(Integer id); 
 }
 

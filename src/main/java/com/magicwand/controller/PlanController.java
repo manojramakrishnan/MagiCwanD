@@ -1,10 +1,16 @@
 package com.magicwand.controller;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.magicwand.entity.Plan;
+import com.magicwand.entity.Registration;
 import com.magicwand.service.PlanService;
 
 /**
@@ -32,5 +38,27 @@ public class PlanController {
     public Plan plan(@RequestBody Plan pln) {
         return service.plan(pln);
     }
+    
+    /**
+     * @apiNote This api method get the data of a particular plan Id.
+     * @param Plan Id Integer
+     * @return an Object of Plan
+     */
+    @GetMapping("/findByPlanId/{planId}")
+    public Optional<Plan> findByReg_Id(@PathVariable Integer planId) {
+    	return service.findByPlanId(planId);
+    }
+
+    /**
+     * @apiNote This api method fetch all the plan data.
+     * @param none
+     * @return an List of Plan object
+     */
+    @GetMapping("/findAllPlans")
+    public List<Plan> findAllPlans() {
+    	return service.findAllPlans();
+    }
+
+    
 
 }

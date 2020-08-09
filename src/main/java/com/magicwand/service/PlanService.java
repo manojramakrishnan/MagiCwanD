@@ -1,8 +1,12 @@
 package com.magicwand.service;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.magicwand.entity.Plan;
+import com.magicwand.entity.Registration;
 import com.magicwand.repository.PlanRepository;
 
 /**
@@ -28,5 +32,26 @@ public class PlanService {
 	    public Plan plan(Plan pln) {
 	        return repository.save(pln);
 	    }
+
+		/**
+     * @implNote this service method takes care of fetching the plan details of a particular plan id.
+     * @param Plan Model object
+     * @return the list of Plan object of the passed plan id in the request.
+     * 
+     */
+    
+    public Optional<Plan> findByPlanId(Integer regnId) {
+    	return repository.findById(regnId);
+    }
+    
+	/**
+     * @implNote this service method takes care of fetching all the plan details.
+     * @param none
+     * @return the list of all Plans data.
+     * 
+     */
+    public List<Plan> findAllPlans() {
+    	return repository.findAll();
+    }
 
 }
