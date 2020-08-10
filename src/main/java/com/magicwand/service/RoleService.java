@@ -52,5 +52,18 @@ public class RoleService {
 	    public List<Role> findAllRoles() {
 	    	return repository.findAll();
 	    }
+	    
+	    
+	    /**
+	     * @implNote this service method takes care of deleting the role details of a particular role id.
+	     * @param Role Model object
+	     * @return the deleted role id in the request.
+	     * 
+	     */
+	    public String deleteRole(int roleId) {
+	        repository.deleteById(roleId);
+	        return "Role removed !! " + roleId;
+	    }
+
 
 }

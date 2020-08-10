@@ -52,5 +52,17 @@ public class UsertypeService {
     	return repository.findAll();
     }
 
+    
+    /**
+     * @implNote this service method takes care of deleting the Usertype details of a particular user.
+     * @param Usertype Model object
+     * @return the Id of deleted Usertype.
+     * 
+     */
+    public String deleteUsertype(int usertypeId) {
+        repository.deleteById(usertypeId);
+        return "Usertype removed !! " + usertypeId;
+    }
+
 }
 

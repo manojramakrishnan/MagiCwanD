@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -57,6 +58,15 @@ public class UsertypeController {
     }
 
     
+    /**
+     * @apiNote This api method delete the data of a particular usertype Id.
+     * @param Usertype Id Integer
+     * @return the Id of deleted Usertype
+     */
+    @DeleteMapping("/deleteusertype/{usertypeId}")
+    public String deleteUsertype(@PathVariable int usertypeId) {
+        return service.deleteUsertype(usertypeId);
+    }
 
 
 }
