@@ -28,7 +28,7 @@ public class UserService {
      * 
      */
     public Registration register(Registration regn) {
-    	regn.setPlan(regn.getPlan());
+//    	regn.setPlan(regn.getPlan());
         return repository.save(regn);
     }
     

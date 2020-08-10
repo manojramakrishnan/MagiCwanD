@@ -3,11 +3,13 @@ package com.magicwand.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,10 +28,22 @@ public class Registration implements Serializable{
     @GeneratedValue
     private int id;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	private Plan plan;
-    
-    @Column(name = "registeredname")
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "planid", referencedColumnName = "plan_id", insertable = false, updatable = false)
+    private Plan plan;
+//  
+	@Column(name = "planid")
+	private int planid;
+	
+    public int getPlanid() {
+		return planid;
+	}
+
+	public void setPlanid(int planid) {
+		this.planid = planid;
+	}
+
+	@Column(name = "registeredname")
     private String registeredName;
     
     @Column(name = "email")
@@ -67,14 +81,14 @@ public class Registration implements Serializable{
 	}
 
 	 
-
-	    public Plan getPlan() {
-	return plan;
-	}
-
-	public void setPlan(Plan plan) {
-	this.plan = plan;
-	}
+//
+//	    public Plan getPlan() {
+//	return plan;
+//	}
+//
+//	public void setPlan(Plan plan) {
+//	this.plan = plan;
+//	}
 
 	public void setId(int id) {
 		this.id = id;
