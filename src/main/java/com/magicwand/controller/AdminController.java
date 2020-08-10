@@ -1,5 +1,9 @@
 package com.magicwand.controller;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,6 +32,16 @@ public class AdminController {
     @PostMapping("/approveOrRejectUser")
     public User user(@RequestBody User usr) {
         return service.user(usr);
+    }
+    
+    /**
+     * @apiNote This api method get all the approved users.
+     * @param status String
+     * @return an Object of User List
+     */
+    @GetMapping("/getAllUsersByStatus/{status}")
+    public List<User> getAllUsersByStatus(@PathVariable String status) {
+    	return service.getAllUsersByStatus(status);
     }
 
     }

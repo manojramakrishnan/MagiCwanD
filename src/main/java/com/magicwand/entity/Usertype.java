@@ -4,7 +4,9 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -13,10 +15,22 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Entity
 public class Usertype {
 	@Id
-    @GeneratedValue
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usertype_generator")
+	@SequenceGenerator(name="usertyp_generator", sequenceName = "usertype_seq")
     private int usertype_id;
 	
-    @Column(name = "description")
+	 @Column(name = "userTypeName")
+	 private String userTypeName;
+	
+    public String getUserTypeName() {
+		return userTypeName;
+	}
+
+	public void setUserTypeName(String userTypeName) {
+		this.userTypeName = userTypeName;
+	}
+
+	@Column(name = "description")
     private String description;
     
     @Column(name = "created_by")

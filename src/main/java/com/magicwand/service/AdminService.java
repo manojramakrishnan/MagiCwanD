@@ -1,4 +1,6 @@
 package com.magicwand.service;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.magicwand.entity.User;
@@ -25,11 +27,19 @@ public class AdminService {
      * 
      */
     public User user(User usr) {
-    	usr.setRegistration(usr.getRegistration());
-    	usr.setUsertype(usr.getUsertype());
-    	usr.setRole(usr.getRole());
-    	usr.setPlan(usr.getPlan());
+    	
         return repository.save(usr);
     }
+
+    /**
+     * @implNote this service method takes care of fetching all the approved users.
+     * @param User Model object
+     * @return the List of users object with the status as parameter.
+     * 
+     */
+	public List<User> getAllUsersByStatus(String status) {
+		// TODO Auto-generated method stub
+		return repository.getAllUsersByStatus(status);
+	}
 
 }

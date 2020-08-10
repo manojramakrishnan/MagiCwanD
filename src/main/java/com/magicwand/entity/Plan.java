@@ -5,8 +5,10 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -17,7 +19,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Table(name = "plan")
 public class Plan {
 	@Id
-    @GeneratedValue
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "plan_generator")
+	@SequenceGenerator(name="plan_generator", sequenceName = "plan_seq")
     private int plan_id;
 	
     @Column(name = "plan_type")

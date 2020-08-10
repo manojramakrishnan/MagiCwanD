@@ -3,12 +3,15 @@ package com.magicwand.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 @Entity
 public class Role {
 	@Id
-    @GeneratedValue
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "role_generator")
+	@SequenceGenerator(name="role_generator", sequenceName = "role_seq")
     private int roletype_id;
 	
     @Column(name = "role")

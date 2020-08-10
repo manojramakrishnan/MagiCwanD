@@ -1,12 +1,16 @@
 package com.magicwand.entity;
 import java.util.Date;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -16,32 +20,81 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Entity
 public class User {
 	@Id
-    @GeneratedValue
-    private int uid;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_generator")
+	@SequenceGenerator(name="user_generator", sequenceName = "user_seq")    
+	private int uid;
 	
-	@OneToOne(fetch = FetchType.LAZY, targetEntity = Registration.class)
-    @JoinColumn(name="id", referencedColumnName = "id", nullable = false)
-	private Registration register;
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "regId", referencedColumnName = "id", insertable = false, updatable = false)
+    private Registration register;
 	
-	@OneToOne(fetch = FetchType.LAZY, targetEntity = Usertype.class)
-    @JoinColumn(name="usertype_id", referencedColumnName = "usertype_id", nullable = false)
+	
+	
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="usertype_id", referencedColumnName = "usertype_id", insertable = false, updatable = false)
 	private Usertype usertype;
 	
-	@OneToOne(fetch = FetchType.LAZY, targetEntity = Role.class)
-    @JoinColumn(name="roletype_id", referencedColumnName = "roletype_id", nullable = false)
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="roleTypeId", referencedColumnName = "roletype_id", insertable = false, updatable = false)
 	private Role role;
 	
-	@OneToOne(fetch = FetchType.LAZY, targetEntity = Plan.class)
-    @JoinColumn(name="plan_id", referencedColumnName = "plan_id", nullable = false)
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="planId", referencedColumnName = "plan_id", insertable = false, updatable = false)
 	private Plan plan;
+	
+	@Column(name = "planId")
+	private int planId;
+	
+    public int getPlanId() {
+		return planId;
+	}
+
+	public void setPlanId(int planId) {
+		this.planId = planId;
+	}
+	
+	@Column(name = "roleTypeId")
+	private int roleTypeId;
+	
+    public int getRoleTypeId() {
+		return roleTypeId;
+	}
+
+	public void setRoleTypeId(int roleTypeId) {
+		this.roleTypeId = roleTypeId;
+	}
+	
+	@Column(name = "userTypeId")
+	private int userTypeId;
+	
+    public int getUserTypeId() {
+		return userTypeId;
+	}
+
+	public void setUserTypeId(int userTypeId) {
+		this.userTypeId = userTypeId;
+	}
+	
+	@Column(name = "regId")
+	private int regId;
+	
+    public int getRegId() {
+		return regId;
+	}
+
+	public void setRegId(int regId) {
+		this.regId = regId;
+	}
+
+	
     
 	@Column(name = "payment_status")
     private String payment_status;
     
-    @Column(name = "planof_expiry")
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
-    @Temporal(TemporalType.DATE)
-    private Date planof_expiry;
+//    @Column(name = "planof_expiry")
+//    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+//    @Temporal(TemporalType.DATE)
+//    private Date planof_expiry;
     
     @Column(name = "status")
     private String status;
@@ -67,7 +120,7 @@ public class User {
     
 	@Override
 	public String toString() {
-		return "User [uid=" + uid + ",  payment_status="+ payment_status + ", planof_expiry=" + planof_expiry + ", status=" + status + ", usertoken=" + usertoken
+		return "User [uid=" + uid + ",  payment_status="+ payment_status + ",  status=" + status + ", usertoken=" + usertoken
 				+ ", created_by=" + created_by + ", modified_by=" + modified_by + ", created_dttm=" + created_dttm + ", modified_dttm=" + modified_dttm + "]";
 	}
 
@@ -80,38 +133,9 @@ public class User {
 	}
 
 	
-	 public Registration getRegistration() {
-		 return register;
-		 }
-
-		 public void setRegistration(Registration register) {
-		 this.register = register;
-		 }
 	
-		 public Usertype getUsertype() {
-			 return usertype;
-			 }
-
-			 public void setUsertype(Usertype usertype) {
-			 this.usertype = usertype;
-			 }
-			 
-			 public Role getRole() {
-				 return role;
-				 }
-
-				 public void setRole(Role role) {
-				 this.role = role;
-				 }
+	
 				 
-				 public Plan getPlan() {
-					 return plan;
-					 }
-
-					 public void setPlan(Plan plan) {
-					 this.plan = plan;
-					 }
-		 
 	public String getPayment_status() {
 		return payment_status;
 	}
@@ -119,13 +143,13 @@ public class User {
 	public void setPayment_status(String payment_status) {
 		this.payment_status = payment_status;
 	}
-	public Date getPlanof_expiry() {
-		return planof_expiry;
-	}
-
-	public void setPlanof_expiry(Date planof_expiry) {
-		this.planof_expiry = planof_expiry;
-	}
+//	public Date getPlanof_expiry() {
+//		return planof_expiry;
+//	}
+//
+//	public void setPlanof_expiry(Date planof_expiry) {
+//		this.planof_expiry = planof_expiry;
+//	}
 	public String getStatus() {
 		return status;
 	}
