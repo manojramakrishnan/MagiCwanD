@@ -43,8 +43,8 @@ public class Plan {
     private int amount;
     
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "plan")
-    private Registration regn = new Registration();
+//    @OneToOne(cascade = CascadeType.ALL, mappedBy = "plan")
+//    private Registration regn = new Registration();
     
 	@Override
 	public String toString() {
