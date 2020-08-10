@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -42,6 +43,26 @@ public class AdminController {
     @GetMapping("/getAllUsersByStatus/{status}")
     public List<User> getAllUsersByStatus(@PathVariable String status) {
     	return service.getAllUsersByStatus(status);
+    }
+    
+    /**
+     * @apiNote This api method get all the users.
+     * @param none
+     * @return an Object of User List
+     */
+    @GetMapping("/getAllUsers")
+    public List<User> getAllUsers() {
+    	return service.getAllUsers();
+    }
+    
+    /**
+     * @apiNote This api method update the user information.
+     * @param User Object Model
+     * @return an Object of User
+     */
+    @PutMapping("/userDetailsupdate")
+    public User updateUser(@RequestBody User user) {
+        return service.updateUser(user);
     }
 
     }

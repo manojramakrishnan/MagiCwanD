@@ -41,5 +41,40 @@ public class AdminService {
 		// TODO Auto-generated method stub
 		return repository.getAllUsersByStatus(status);
 	}
+	
+	/**
+     * @implNote this service method takes care of fetching all the users.
+     * @param none
+     * @return the List of users object.
+     * 
+     */
+
+	public List<User> getAllUsers() {
+		// TODO Auto-generated method stub
+		return repository.findAll();
+	}
+
+	/**
+     * @implNote this service method takes care of updating all the user information.
+     * @param User Object Model
+     * @return user object.
+     * 
+     */
+	public User updateUser(User user) {
+		User existingUser = repository.findById(user.getUid()).orElse(null);
+		existingUser.setUsertoken(user.getUsertoken());
+		existingUser.setCreated_by(user.getCreated_by());
+		existingUser.setCreated_dttm(user.getCreated_dttm());
+		existingUser.setModified_by(user.getModified_by());
+		existingUser.setModified_dttm(user.getCreated_dttm());
+		existingUser.setPayment_status(user.getPayment_status());
+		existingUser.setPlanId(user.getPlanId());
+		existingUser.setRegId(user.getRegId());
+		existingUser.setRoleTypeId(user.getRoleTypeId());
+		existingUser.setStatus(user.getStatus());
+		existingUser.setUserTypeId(user.getUserTypeId());
+		
+        return repository.save(existingUser);
+	}
 
 }
