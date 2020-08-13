@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.magicwand.entity.Registration;
 import com.magicwand.entity.User;
 import com.magicwand.service.AdminService;
+import com.magicwand.service.UserService;
 /**
  * 
  * @author Anjali George
@@ -24,6 +26,14 @@ import com.magicwand.service.AdminService;
 public class AdminController {
 	@Autowired
     private AdminService service;
+	
+
+	private Registration registration;
+	
+	@Autowired
+	private UserService uservice;
+	
+	
 
     /**
      * @apiNote This api method save the real time details of a user.
@@ -32,6 +42,12 @@ public class AdminController {
      */
     @PostMapping("/approveOrRejectUser")
     public User user(@RequestBody User usr) {
+    	if (usr.getStatus().equalsIgnoreCase("approved")){
+    		registration = uservice.findByReg_Id(usr.getRegId());
+    		usr.setUserName(registration.getUserName());
+    		usr.setPassword(registration.getPassword());
+    		usr.setConfirmPassword(registration.getConfirmPassword());
+    	}
         return service.user(usr);
     }
     
