@@ -1,4 +1,5 @@
 package com.magicwand.entity;
+
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -15,70 +16,99 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-
-
 @Entity
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_generator")
-	@SequenceGenerator(name="user_generator", sequenceName = "user_seq")    
+	@SequenceGenerator(name = "user_generator", sequenceName = "user_seq")
 	private int uid;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "regId", referencedColumnName = "id", insertable = false, updatable = false)
-    private Registration register;
-	
-	
-	
+	@JoinColumn(name = "regId", referencedColumnName = "id", insertable = false, updatable = false)
+	private Registration register;
+
+	@Column(name = "username")
+	private String userName;
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+
+	@Column(name = "passwd")
+	private String password;
+
+	@Column(name = "cnfrm_passwd")
+	private String confirmPassword;
+
 	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="usertype_id", referencedColumnName = "usertype_id", insertable = false, updatable = false)
+	@JoinColumn(name = "usertype_id", referencedColumnName = "usertype_id", insertable = false, updatable = false)
 	private Usertype usertype;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="roleTypeId", referencedColumnName = "roletype_id", insertable = false, updatable = false)
+	@JoinColumn(name = "roleTypeId", referencedColumnName = "roletype_id", insertable = false, updatable = false)
 	private Role role;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="planId", referencedColumnName = "plan_id", insertable = false, updatable = false)
+	@JoinColumn(name = "planId", referencedColumnName = "plan_id", insertable = false, updatable = false)
 	private Plan plan;
-	
+
 	@Column(name = "planId")
 	private int planId;
-	
-    public int getPlanId() {
+
+	public int getPlanId() {
 		return planId;
 	}
 
 	public void setPlanId(int planId) {
 		this.planId = planId;
 	}
-	
+
 	@Column(name = "roleTypeId")
 	private int roleTypeId;
-	
-    public int getRoleTypeId() {
+
+	public int getRoleTypeId() {
 		return roleTypeId;
 	}
 
 	public void setRoleTypeId(int roleTypeId) {
 		this.roleTypeId = roleTypeId;
 	}
-	
+
 	@Column(name = "userTypeId")
 	private int userTypeId;
-	
-    public int getUserTypeId() {
+
+	public int getUserTypeId() {
 		return userTypeId;
 	}
 
 	public void setUserTypeId(int userTypeId) {
 		this.userTypeId = userTypeId;
 	}
-	
+
 	@Column(name = "regId")
 	private int regId;
-	
-    public int getRegId() {
+
+	public int getRegId() {
 		return regId;
 	}
 
@@ -86,42 +116,41 @@ public class User {
 		this.regId = regId;
 	}
 
-	
-    
 	@Column(name = "payment_status")
-    private String payment_status;
-    
+	private String payment_status;
+
 //    @Column(name = "planof_expiry")
 //    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
 //    @Temporal(TemporalType.DATE)
 //    private Date planof_expiry;
-    
-    @Column(name = "status")
-    private String status;
-    
-    @Column(name = "usertoken")
-    private String usertoken;
-    
-    @Column(name = "created_by")
-    private String created_by;
-    
-    @Column(name = "modified_by")
-    private String modified_by;
 
-    @Column(name = "created_dttm")
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy hh:MM:ss")
-    @Temporal(TemporalType.TIME)
-    private Date created_dttm;
-    
-    @Column(name = "modified_dttm")
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy hh:MM:ss")
-    @Temporal(TemporalType.TIME)
-    private Date modified_dttm;
-    
+	@Column(name = "status")
+	private String status;
+
+	@Column(name = "usertoken")
+	private String usertoken;
+
+	@Column(name = "created_by")
+	private String created_by;
+
+	@Column(name = "modified_by")
+	private String modified_by;
+
+	@Column(name = "created_dttm")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:MM:ss")
+	@Temporal(TemporalType.TIME)
+	private Date created_dttm;
+
+	@Column(name = "modified_dttm")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:MM:ss")
+	@Temporal(TemporalType.TIME)
+	private Date modified_dttm;
+
 	@Override
 	public String toString() {
-		return "User [uid=" + uid + ",  payment_status="+ payment_status + ",  status=" + status + ", usertoken=" + usertoken
-				+ ", created_by=" + created_by + ", modified_by=" + modified_by + ", created_dttm=" + created_dttm + ", modified_dttm=" + modified_dttm + "]";
+		return "User [uid=" + uid + ",  payment_status=" + payment_status + ",  status=" + status + ", usertoken="
+				+ usertoken + ", created_by=" + created_by + ", modified_by=" + modified_by + ", created_dttm="
+				+ created_dttm + ", modified_dttm=" + modified_dttm + "]";
 	}
 
 	public int getUid() {
@@ -132,10 +161,6 @@ public class User {
 		this.uid = uid;
 	}
 
-	
-	
-	
-				 
 	public String getPayment_status() {
 		return payment_status;
 	}
@@ -143,6 +168,7 @@ public class User {
 	public void setPayment_status(String payment_status) {
 		this.payment_status = payment_status;
 	}
+
 //	public Date getPlanof_expiry() {
 //		return planof_expiry;
 //	}
@@ -157,8 +183,8 @@ public class User {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
-	//usertoken
+
+	// usertoken
 	public String getUsertoken() {
 		return usertoken;
 	}
@@ -166,6 +192,7 @@ public class User {
 	public void setUsertoken(String usertoken) {
 		this.usertoken = usertoken;
 	}
+
 	public String getCreated_by() {
 		return created_by;
 	}
@@ -173,6 +200,7 @@ public class User {
 	public void setCreated_by(String created_by) {
 		this.created_by = created_by;
 	}
+
 	public String getModified_by() {
 		return modified_by;
 	}
@@ -188,7 +216,7 @@ public class User {
 	public void setCreated_dttm(Date created_dttm) {
 		this.created_dttm = created_dttm;
 	}
-	
+
 	public Date getModified_dttm() {
 		return modified_dttm;
 	}
@@ -196,6 +224,5 @@ public class User {
 	public void setModified_dttm(Date modified_dttm) {
 		this.modified_dttm = modified_dttm;
 	}
-    
-    }
 
+}
