@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class Usertype {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usertype_generator")
-	@SequenceGenerator(name="usertyp_generator", sequenceName = "usertype_seq")
+	@SequenceGenerator(name="usertype_generator", sequenceName = "usertype_seq")
     private int usertype_id;
 	
 	 @Column(name = "userTypeName")

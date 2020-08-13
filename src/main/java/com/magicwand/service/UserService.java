@@ -1,7 +1,5 @@
 package com.magicwand.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +37,7 @@ public class UserService {
      * 
      */
     //@Qualifier(value = "com.magicwand.repository.UserRepositoryImpl")
-    public List<Registration> findByReg_Id(Integer regnId) {
+    public Registration findByReg_Id(Integer regnId) {
     	System.err.println("regnid in controller"+regnId);
     	return repository.findByReg_Id(regnId);
     }

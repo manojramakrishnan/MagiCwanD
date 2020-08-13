@@ -1,8 +1,6 @@
 package com.magicwand.controller;
 
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,7 +42,7 @@ public class UserController {
      * @return an Object of Registration
      */
     @GetMapping("/findByRegId/{regnId}")
-    public List<Registration> findByReg_Id(@PathVariable Integer regnId) {
+    public Registration findByReg_Id(@PathVariable Integer regnId) {
     	return service.findByReg_Id(regnId);
     }
     
