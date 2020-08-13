@@ -10,5 +10,7 @@ public interface AdminRepository extends JpaRepository<User,Integer> {
 
 	@Query("select u from User u,Registration r where r.id=u.regId and u.status=:status")
 	List<User> getAllUsersByStatus(String status);
+
+	User findByUserName(String username);
     
 }
