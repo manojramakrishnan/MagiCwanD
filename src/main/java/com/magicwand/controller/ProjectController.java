@@ -1,4 +1,6 @@
 package com.magicwand.controller;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,6 +44,16 @@ public class ProjectController {
     @GetMapping("/findByProjectId/{project_id}")
     public Project findByProject_Id(@PathVariable Integer project_id) {
     	return service.findByProject_Id(project_id);
+    }
+    
+    /**
+     * @apiNote This api method get the details of the all the projects by Organization Id
+     * @param Integer organizationId
+     * @return an List of project Objects.
+     */
+    @GetMapping("/findProjectByOrganizationId/{organization_id}")
+    public List<Project> findProjectByOrganizationId(@PathVariable Integer organization_id) {
+    	return service.findProjectByOrganizationId(organization_id);
     }
     
     /**

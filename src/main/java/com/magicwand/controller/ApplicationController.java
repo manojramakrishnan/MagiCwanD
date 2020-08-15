@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,6 +48,16 @@ public class ApplicationController {
     public Optional<Application> findAppById(@PathVariable Integer appId) {
     	return service.findByAppId(appId);
     }
+    
+    /**
+     * @apiNote This api method get the data of all applications under a project.
+     * @param projectId Integer
+     * @return an List of application
+     */
+    @GetMapping("/getApplicationByProjectId/{project_id}")
+    public List<Application> getApplicationByProjectId(@PathVariable Integer project_id) {
+    	return service.getApplicationByProjectId(project_id);
+    }
 
     /**
      * @apiNote This api method fetch all the application data.
@@ -58,4 +69,25 @@ public class ApplicationController {
     	return service.findAllApplications();
     }
     
+    /**
+     * @apiNote This api method delete the data of a particular application Id.
+     * @param Application Id Integer
+     * @return the deleted application id
+     */
+    @DeleteMapping("/deleteapplication/{applicationId}")
+        public String deleteApplication(@PathVariable int applicationId) {
+            return service.deleteApplication(applicationId);
+        }
+    
+	/**
+     * @apiNote This api method delete the data of all application Id.
+     * @param Application Id Integer List
+     * @return the string
+     */
+	
+    @DeleteMapping("/deleteApplicationsByIds/{application_idList}")
+    public String deleteApplicationsByIds(List<Integer> application_idList)
+    {
+     return service.deleteApplicationsByIds( application_idList);
+    }
 }

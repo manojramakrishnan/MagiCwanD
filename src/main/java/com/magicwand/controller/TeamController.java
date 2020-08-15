@@ -38,7 +38,7 @@ public class TeamController {
      * @return an Object of Team
      */
 	@PostMapping("/addteam")
-    public Team team(@RequestBody Team tm) {
+    public Iterable<Team> team(@RequestBody Team tm) {
         return service.team(tm);
     }
 	/**
@@ -46,9 +46,9 @@ public class TeamController {
      * @param Team Id Integer
      * @return an Object of team
      */
-    @GetMapping("/getTeamById/{teamId}")
-    public Optional<Team> findTeamById(@PathVariable Integer teamId) {
-    	return service.findByTeamId(teamId);
+    @GetMapping("/getTeamByName/{teamName}")
+    public Iterable<Team> findTeamByName(@PathVariable String teamName) {
+    	return service.findTeamByName(teamName);
     }
 
     /**
@@ -57,7 +57,7 @@ public class TeamController {
      * @return an List of team object
      */
     @GetMapping("/getAllTeams")
-    public List<Team> findAllTeams() {
+    public Iterable<Team> findAllTeams() {
     	return service.findAllTeams();
     }
 }

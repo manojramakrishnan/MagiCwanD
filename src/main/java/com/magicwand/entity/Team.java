@@ -1,14 +1,19 @@
 package com.magicwand.entity;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -38,10 +43,35 @@ public class Team {
     @Temporal(TemporalType.TIME)
     private Date modified_dttm;
     
+    @Transient
+    private List<Integer> userIds ;
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "userId", referencedColumnName = "uid", insertable = false, updatable = false)
+    private User user;
+    
+    private Integer userId;
+    
 
 //    @OneToOne(cascade = CascadeType.ALL, mappedBy = "plan")
 //    private Registration regn = new Registration();
     
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
+	public List<Integer> getUserIds() {
+		return userIds;
+	}
+
+	public void setUserIds(List<Integer> userIds) {
+		this.userIds = userIds;
+	}
+
 	@Override
 	public String toString() {
 		return "Team [team_id=" + team_id + ", team_name=" + team_name + ", created_by=" + created_by + ", created_dttm=" + created_dttm + ", modified_by=" + modified_by + ", modified_dttm=" + modified_dttm + "]";

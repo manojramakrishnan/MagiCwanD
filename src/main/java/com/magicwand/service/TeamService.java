@@ -1,4 +1,5 @@
 package com.magicwand.service;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,8 +32,59 @@ public class TeamService {
      * @return the saved team object with the team id.
      * 
      */
-    public Team team(Team tm) {
-        return repository.save(tm);
+    public Iterable<Team> team(Team tm) {
+    	
+    	List<Integer> userIds = tm.getUserIds();
+    	List<Integer> existUserIds = new ArrayList<Integer>();
+    	List<Integer> newUserIds = new ArrayList<Integer>();
+    	Iterable<Team> existingTeam = repository.findByTeamName(tm.getTeam_name());
+    	if(null != existingTeam) {
+    		Integer userId=0;
+    	for (Team team : existingTeam) {
+    		userId = team.getUserId();
+    		existUserIds.add(userId);
+		}
+    	
+    	
+		for(Integer i: userIds)
+		{
+			if(!existUserIds.contains(i))
+			{
+				newUserIds.add(i);
+			}
+		}
+		
+    	Team newTeam;
+    	List<Team> newTeamList = new ArrayList<Team>();
+    	for (Integer integer : newUserIds) {
+    		newTeam = new Team();
+    		newTeam.setTeam_name(tm.getTeam_name());
+			newTeam.setUserId(integer);
+			newTeam.setCreated_by(tm.getCreated_by());
+			newTeam.setCreated_dttm(tm.getCreated_dttm());
+			newTeam.setModified_by(tm.getModified_by());
+			newTeam.setModified_dttm(tm.getModified_dttm());
+			newTeamList.add(newTeam);
+		}
+    	return repository.saveAll(newTeamList);
+    	}
+    	else {
+    		Team newTeam;
+        	List<Team> newTeamList = new ArrayList<Team>();
+        	for (Integer integer : userIds) {
+        		newTeam = new Team();
+        		newTeam.setTeam_name(tm.getTeam_name());
+    			newTeam.setUserId(integer);
+    			newTeam.setCreated_by(tm.getCreated_by());
+    			newTeam.setCreated_dttm(tm.getCreated_dttm());
+    			newTeam.setModified_by(tm.getModified_by());
+    			newTeam.setModified_dttm(tm.getModified_dttm());
+    			newTeamList.add(newTeam);
+    	}
+        	return repository.saveAll(newTeamList);
+    	}
+    	
+        
     }
     /**
      * @implNote this service method takes care of fetching the team details of a particular team id.
@@ -41,8 +93,8 @@ public class TeamService {
      * 
      */
     
-    public Optional<Team> findByTeamId(Integer teamId) {
-    	return repository.findById(teamId);
+    public Iterable<Team> findTeamByName(String teamName) {
+    	return repository.findByTeamName(teamName);
     }
     
 	/**
@@ -51,7 +103,7 @@ public class TeamService {
      * @return the list of all team data.
      * 
      */
-    public List<Team> findAllTeams() {
+    public Iterable<Team> findAllTeams() {
     	return repository.findAll();
     }
     

@@ -27,12 +27,17 @@ public class Application {
     @JoinColumn(name = "project_id", referencedColumnName = "project_id", insertable = false, updatable = false)
     private Project project;
 	
-    public Project getProject() {
-		return project;
+    
+	
+	@Column(name = "project_id")
+	private int project_id;
+
+	public int getProject_id() {
+		return project_id;
 	}
 
-	public void setProject(Project project) {
-		this.project = project;
+	public void setProject_id(int project_id) {
+		this.project_id = project_id;
 	}
 
 	@Column(name = "application_name")

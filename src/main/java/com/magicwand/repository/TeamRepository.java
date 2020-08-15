@@ -1,9 +1,15 @@
 package com.magicwand.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 
 import com.magicwand.entity.Team;
 
-public interface TeamRepository extends JpaRepository<Team,Integer> {
+public interface TeamRepository extends CrudRepository<Team,Integer> {
+	
+	@Query("select t from Team t where t.team_name=:teamName")
+	Iterable<Team> findByTeamName(String teamName);
     
 }

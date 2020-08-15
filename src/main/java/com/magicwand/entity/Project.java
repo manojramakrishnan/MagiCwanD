@@ -25,25 +25,16 @@ public class Project {
 	@SequenceGenerator(name="project_generator", sequenceName = "project_seq")    
 	private int project_id;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "application_id", referencedColumnName = "application_id", insertable = false, updatable = false)
-    private Application application;
-	
+//	@OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "application_id", referencedColumnName = "application_id", insertable = false, updatable = false)
+//    private Application application;
+//	
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "organization_id", referencedColumnName = "org_id", insertable = false, updatable = false)
     private Organization organization;
 	
 	
-	@Column(name = "application_id")
-	private int application_id;
 	
-    public int getApplicationId() {
-		return application_id;
-	}
-
-	public void setApplicationId(int application_id) {
-		this.application_id = application_id;
-	}
 	
 	@Column(name = "organization_id")
 	private int organization_id;

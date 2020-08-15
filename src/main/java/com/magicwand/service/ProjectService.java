@@ -1,4 +1,6 @@
 package com.magicwand.service;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -52,4 +54,17 @@ public class ProjectService {
 	    	
 	    	return repository.findAll();
 	    }
+	    
+	    /**
+	     * @implNote this service method takes care of fetching all projects based on organization id.
+	     * @param Integer organization id
+	     * @return the list of project object.
+	     * 
+	     */
+	    
+	    
+		public List<Project> findProjectByOrganizationId(Integer organization_id) {
+			// TODO Auto-generated method stub
+			return repository.findProjectByOrganizationId(organization_id);
+		}
 }
