@@ -1,4 +1,4 @@
-package com.magicwand.util;
+/*package com.magicwand.util;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -55,4 +55,4 @@ public class JavaWebTokenUtils {
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
-}
+}*/

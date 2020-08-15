@@ -1,5 +1,6 @@
 package com.magicwand.service;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,5 +32,26 @@ public class OrganizationService {
     public Organization organization(Organization org) {
         return repository.save(org);
     }
+    /**
+     * @implNote this service method takes care of fetching the organization details of a particular organization id.
+     * @param Organization Model object
+     * @return the list of Organization object of the passed organization id in the request.
+     * 
+     */
+    
+    public Optional<Organization> findByOrgId(Integer orgId) {
+    	return repository.findById(orgId);
+    }
+    
+	/**
+     * @implNote this service method takes care of fetching all the organization details.
+     * @param none
+     * @return the list of all organization's data.
+     * 
+     */
+    public List<Organization> findAllOrganizations() {
+    	return repository.findAll();
+    }
+    
 
 }

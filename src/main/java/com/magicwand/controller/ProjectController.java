@@ -1,6 +1,4 @@
 package com.magicwand.controller;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,9 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.magicwand.entity.Project;
-import com.magicwand.entity.Registration;
 import com.magicwand.service.ProjectService;
-import com.magicwand.service.UserService;
 
 
 /**
@@ -38,5 +34,24 @@ public class ProjectController {
     public Project project(@RequestBody Project prjt) {
         return service.project(prjt);
     }
+    /**
+     * @apiNote This api method get the details of the project.
+     * @param project Model object
+     * @return an Object of project.
+     */
+    @GetMapping("/findByProjectId/{project_id}")
+    public Project findByProject_Id(@PathVariable Integer project_id) {
+    	return service.findByProject_Id(project_id);
+    }
     
+    /**
+     * @apiNote This api method fetch all the project details.
+     * @param none
+     * @return a list of project.
+     */
+    @GetMapping("/findAllProjects")
+    public Iterable<Project> findAllProjects() {
+    	return service.findAllProjects();
+    }
+
 }

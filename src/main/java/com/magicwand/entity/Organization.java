@@ -1,10 +1,13 @@
 package com.magicwand.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 @Entity
@@ -14,7 +17,7 @@ public class Organization {
 	@SequenceGenerator(name="organization_generator", sequenceName = "organization_seq")
     private int org_id;
 	
-    @Column(name = "org_name")
+	@Column(name = "org_name")
     private String org_name;
     
     @Column(name = "description")

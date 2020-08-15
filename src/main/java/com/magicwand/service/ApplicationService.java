@@ -33,5 +33,25 @@ public class ApplicationService {
 	    public Application application(Application app) {
 	        return repository.save(app);
 	    }
-
+	    /**
+	     * @implNote this service method takes care of fetching the application details of a particular application id.
+	     * @param Application Model object
+	     * @return the list of Application object of the passed application id in the request.
+	     * 
+	     */
+	    
+	    public Optional<Application> findByAppId(Integer appId) {
+	    	return repository.findById(appId);
+	    }
+	    
+		/**
+	     * @implNote this service method takes care of fetching all the application details.
+	     * @param none
+	     * @return the list of all application data.
+	     * 
+	     */
+	    public List<Application> findAllApplications() {
+	    	return repository.findAll();
+	    }
+	    
 }

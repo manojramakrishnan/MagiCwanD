@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.magicwand.entity.Organization;
 import com.magicwand.entity.Role;
 import com.magicwand.entity.Team;
 import com.magicwand.repository.RoleRepository;
@@ -33,4 +34,26 @@ public class TeamService {
     public Team team(Team tm) {
         return repository.save(tm);
     }
+    /**
+     * @implNote this service method takes care of fetching the team details of a particular team id.
+     * @param Team Model object
+     * @return the list of Team object of the passed team id in the request.
+     * 
+     */
+    
+    public Optional<Team> findByTeamId(Integer teamId) {
+    	return repository.findById(teamId);
+    }
+    
+	/**
+     * @implNote this service method takes care of fetching all the team details.
+     * @param none
+     * @return the list of all team data.
+     * 
+     */
+    public List<Team> findAllTeams() {
+    	return repository.findAll();
+    }
+    
+
 }

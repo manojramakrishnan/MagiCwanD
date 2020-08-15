@@ -1,11 +1,14 @@
 package com.magicwand.entity;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,7 +23,19 @@ public class Application {
 	@SequenceGenerator(name="application_generator", sequenceName = "application_seq")
     private int application_id;
 	
-    @Column(name = "application_name")
+	@ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "project_id", referencedColumnName = "project_id", insertable = false, updatable = false)
+    private Project project;
+	
+    public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
+
+	@Column(name = "application_name")
     private String application_name;
     
     @Column(name = "description")

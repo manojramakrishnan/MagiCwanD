@@ -1,6 +1,4 @@
 package com.magicwand.service;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,5 +29,27 @@ public class ProjectService {
 //	    	regn.setPlan(regn.getPlan());
 	        return repository.save(prjt);
 	    }
+	    /**
+	     * @implNote this service method takes care of fetching the project details based on project id.
+	     * @param project object
+	     * @return the list of project object of the passed project id in the request.
+	     * 
+	     */
+	    //@Qualifier(value = "com.magicwand.repository.UserRepositoryImpl")
+	    public Project findByProject_Id(Integer project_id) {
+	    	System.err.println("project in controller"+project_id);
+	    	return repository.findByProject_Id(project_id);
+	    }
 
+	    /**
+	     * @implNote this service method takes care of fetching the project details.
+	     * @param none
+	     * @return the list of project object.
+	     * 
+	     */
+	    
+	    public Iterable<Project> findAllProjects() {
+	    	
+	    	return repository.findAll();
+	    }
 }

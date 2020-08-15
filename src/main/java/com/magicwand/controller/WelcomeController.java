@@ -1,4 +1,4 @@
-package com.magicwand.controller;
+/*package com.magicwand.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -36,4 +36,4 @@ public class WelcomeController {
         return jwtUtil.generateToken(authRequest.getUserName());
     }
 
-}
+}*/

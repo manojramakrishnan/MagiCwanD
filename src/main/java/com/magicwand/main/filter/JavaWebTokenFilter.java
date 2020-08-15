@@ -1,4 +1,4 @@
-package com.magicwand.main.filter;
+/*package com.magicwand.main.filter;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,3 +56,4 @@ public class JavaWebTokenFilter extends OncePerRequestFilter {
         filterChain.doFilter(httpServletRequest, httpServletResponse);
     }
 }
+*/

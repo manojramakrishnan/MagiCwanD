@@ -1,4 +1,4 @@
-package com.magicwand.main.request;
+/*package com.magicwand.main.request;
 
 public class AuthRequest {
 
@@ -18,3 +18,4 @@ public class AuthRequest {
 	}
 	
 }
+*/

@@ -1,4 +1,4 @@
-package com.magicwand.service;
+/*package com.magicwand.service;
 
 
 import java.util.ArrayList;
@@ -22,4 +22,4 @@ public class CustomUserDetailsService implements UserDetailsService {
         User user = repository.findByUserName(username);
         return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(), new ArrayList<>());
     }
-}
+}*/

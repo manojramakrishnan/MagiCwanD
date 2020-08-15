@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.magicwand.entity.Organization;
 import com.magicwand.entity.Role;
 import com.magicwand.entity.Team;
 import com.magicwand.service.RoleService;
@@ -39,5 +40,24 @@ public class TeamController {
 	@PostMapping("/addteam")
     public Team team(@RequestBody Team tm) {
         return service.team(tm);
+    }
+	/**
+     * @apiNote This api method get the data of a particular team Id.
+     * @param Team Id Integer
+     * @return an Object of team
+     */
+    @GetMapping("/getTeamById/{teamId}")
+    public Optional<Team> findTeamById(@PathVariable Integer teamId) {
+    	return service.findByTeamId(teamId);
+    }
+
+    /**
+     * @apiNote This api method fetch all the team data.
+     * @param none
+     * @return an List of team object
+     */
+    @GetMapping("/getAllTeams")
+    public List<Team> findAllTeams() {
+    	return service.findAllTeams();
     }
 }

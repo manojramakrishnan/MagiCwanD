@@ -1,5 +1,6 @@
 package com.magicwand.entity;
 import java.util.Date;
+//import java.time.format.DateTimeFormatter;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -25,33 +26,34 @@ public class Project {
 	private int project_id;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "applicationId", referencedColumnName = "application_id", insertable = false, updatable = false)
+    @JoinColumn(name = "application_id", referencedColumnName = "application_id", insertable = false, updatable = false)
     private Application application;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "organizationId", referencedColumnName = "org_id", insertable = false, updatable = false)
+    @JoinColumn(name = "organization_id", referencedColumnName = "org_id", insertable = false, updatable = false)
     private Organization organization;
 	
-	@Column(name = "applicationId")
-	private int applicationId;
+	
+	@Column(name = "application_id")
+	private int application_id;
 	
     public int getApplicationId() {
-		return applicationId;
+		return application_id;
 	}
 
-	public void setApplicationId(int applicationId) {
-		this.applicationId = applicationId;
+	public void setApplicationId(int application_id) {
+		this.application_id = application_id;
 	}
 	
-	@Column(name = "organizationId")
-	private int organizationId;
+	@Column(name = "organization_id")
+	private int organization_id;
 	
-    public int getOrganizationId() {
-		return organizationId;
+    public int getOrganization_id() {
+		return organization_id;
 	}
 
-	public void setOrganizationId(int organizationId) {
-		this.organizationId = organizationId;
+	public void setOrganizationId(int organization_id) {
+		this.organization_id = organization_id;
 	}
 	@Column(name = "project_name")
     private String project_name;
@@ -67,12 +69,12 @@ public class Project {
 
     @Column(name = "created_dttm")
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy hh:MM:ss")
-    @Temporal(TemporalType.TIME)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date created_dttm;
     
     @Column(name = "modified_dttm")
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy hh:MM:ss")
-    @Temporal(TemporalType.TIME)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date modified_dttm;
     
 	@Override
