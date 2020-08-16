@@ -1,16 +1,24 @@
 package com.magicwand.controller;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.magicwand.entity.Registration;
 import com.magicwand.entity.User;
+import com.magicwand.exceptions.UserExistsException;
+import com.magicwand.exceptions.UserNotFoundException;
 import com.magicwand.service.AdminService;
 import com.magicwand.service.UserService;
 /**
@@ -40,15 +48,46 @@ public class AdminController {
      * @param User Model object
      * @return an Object of User
      */
+//    @PostMapping("/approveOrRejectUser")
+//    public User user(@RequestBody User usr) {
+//    	if (usr.getStatus().equalsIgnoreCase("approved")){
+//    		registration = uservice.findByReg_Id(usr.getRegId());
+//    		usr.setUserName(registration.getUserName());
+//    		usr.setPassword(registration.getPassword());
+//    		usr.setConfirmPassword(registration.getConfirmPassword());
+//    	}
+//        return service.user(usr);
+//    }
+    
     @PostMapping("/approveOrRejectUser")
-    public User user(@RequestBody User usr) {
+    public ResponseEntity<Void> user(@RequestBody User usr, UriComponentsBuilder builder) throws UserExistsException {
     	if (usr.getStatus().equalsIgnoreCase("approved")){
     		registration = uservice.findByReg_Id(usr.getRegId());
     		usr.setUserName(registration.getUserName());
     		usr.setPassword(registration.getPassword());
     		usr.setConfirmPassword(registration.getConfirmPassword());
     	}
-        return service.user(usr);
+    	service.user(usr);
+		HttpHeaders headers = new HttpHeaders();
+		headers.setLocation(builder.path("/getusers/{id}").buildAndExpand(usr.getUid()).toUri());
+		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+        
+    }
+    
+    /**
+     * @apiNote This api method get the user by uid.
+     * @param Integer uid
+     * @return an Object of User
+     */
+    @GetMapping("/getUserById/{id}")
+    public Optional<User> getUserById(@PathVariable int id) {
+    	try {
+    		return service.getUserById(id);
+    	}
+    	catch (UserNotFoundException ex) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getMessage());
+		}
+    	
     }
     
     /**

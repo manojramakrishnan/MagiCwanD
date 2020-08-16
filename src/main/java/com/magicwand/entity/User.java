@@ -24,10 +24,10 @@ public class User {
 	private int uid;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "regId", referencedColumnName = "id", insertable = false, updatable = false)
+	@JoinColumn(name = "regId", referencedColumnName = "id", insertable = false, updatable = false, nullable = false)
 	private Registration register;
 
-	@Column(name = "username")
+	@Column(name = "username", length = 50, nullable = false, unique = true)
 	private String userName;
 
 	public String getUserName() {
@@ -54,10 +54,10 @@ public class User {
 		this.confirmPassword = confirmPassword;
 	}
 
-	@Column(name = "passwd")
+	@Column(name = "passwd",length = 50, nullable = false)
 	private String password;
 
-	@Column(name = "cnfrm_passwd")
+	@Column(name = "cnfrm_passwd",length = 50, nullable = false)
 	private String confirmPassword;
 
 	@OneToOne(cascade = CascadeType.ALL)
@@ -72,7 +72,7 @@ public class User {
 	@JoinColumn(name = "planId", referencedColumnName = "plan_id", insertable = false, updatable = false)
 	private Plan plan;
 
-	@Column(name = "planId")
+	@Column(name = "planId",length = 50, nullable = false)
 	private int planId;
 
 	public int getPlanId() {
@@ -83,7 +83,7 @@ public class User {
 		this.planId = planId;
 	}
 
-	@Column(name = "roleTypeId")
+	@Column(name = "roleTypeId",length = 50, nullable = false)
 	private int roleTypeId;
 
 	public int getRoleTypeId() {
@@ -94,7 +94,7 @@ public class User {
 		this.roleTypeId = roleTypeId;
 	}
 
-	@Column(name = "userTypeId")
+	@Column(name = "userTypeId",length = 50, nullable = false)
 	private int userTypeId;
 
 	public int getUserTypeId() {
@@ -116,7 +116,7 @@ public class User {
 		this.regId = regId;
 	}
 
-	@Column(name = "payment_status")
+	@Column(name = "payment_status",length = 50, nullable = false)
 	private String payment_status;
 
 //    @Column(name = "planof_expiry")
@@ -124,24 +124,24 @@ public class User {
 //    @Temporal(TemporalType.DATE)
 //    private Date planof_expiry;
 
-	@Column(name = "status")
+	@Column(name = "status",length = 50, nullable = false)
 	private String status;
 
-	@Column(name = "usertoken")
+	@Column(name = "usertoken",length = 50, nullable = true)
 	private String usertoken;
 
-	@Column(name = "created_by")
+	@Column(name = "created_by",length = 50, nullable = false)
 	private String created_by;
 
-	@Column(name = "modified_by")
+	@Column(name = "modified_by",length = 50, nullable = false)
 	private String modified_by;
 
-	@Column(name = "created_dttm")
+	@Column(name = "created_dttm",length = 50, nullable = false)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:MM:ss")
 	@Temporal(TemporalType.TIME)
 	private Date created_dttm;
 
-	@Column(name = "modified_dttm")
+	@Column(name = "modified_dttm",length = 50, nullable = false)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:MM:ss")
 	@Temporal(TemporalType.TIME)
 	private Date modified_dttm;

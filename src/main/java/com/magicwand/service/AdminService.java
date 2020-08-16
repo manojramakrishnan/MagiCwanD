@@ -1,9 +1,12 @@
 package com.magicwand.service;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.magicwand.entity.User;
+import com.magicwand.exceptions.UserExistsException;
+import com.magicwand.exceptions.UserNotFoundException;
 import com.magicwand.repository.AdminRepository;
 
 /**
@@ -26,8 +29,14 @@ public class AdminService {
      * @return the saved Registration object with the generated registration id.
      * 
      */
-    public User user(User usr) {
+    public User user(User usr) throws UserExistsException{
+    		//if user exist using username
+    		User existingUser = repository.findByUserName(usr.getUserName());
     	
+    		//if not exists throw UserExistsException
+    		if(existingUser != null) {
+    			throw new UserExistsException("User already exists in repository");
+    		}
         return repository.save(usr);
     }
 
@@ -75,6 +84,16 @@ public class AdminService {
 		existingUser.setUserTypeId(user.getUserTypeId());
 		
         return repository.save(existingUser);
+	}
+
+	public Optional<User> getUserById(int id) throws UserNotFoundException {
+		Optional<User> user = repository.findById(id);
+
+		if (!user.isPresent()) {
+			throw new UserNotFoundException("User Not found in user Repository");
+		}
+
+		return user;
 	}
 
 }
