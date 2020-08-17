@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.magicwand.entity.Application;
 import com.magicwand.entity.Role;
+import com.magicwand.entity.User;
+import com.magicwand.exceptions.ApplicationNotFoundException;
+import com.magicwand.exceptions.UserNotFoundException;
 import com.magicwand.repository.ApplicationRepository;
 import com.magicwand.repository.RoleRepository;
 
@@ -43,9 +46,18 @@ public class ApplicationService {
 	 * 
 	 */
 
-	public Optional<Application> findByAppId(Integer appId) {
-		return repository.findById(appId);
+	public Optional<Application> findByAppId(Integer appId) throws ApplicationNotFoundException {
+		Optional<Application> application = repository.findById(appId);
+		
+
+		if (!application.isPresent()) {
+			throw new ApplicationNotFoundException("Application Not found in application Repository");
+		}
+		//return repository.findById(appId);
+		return application;
 	}
+		
+	
 
 	/**
 	 * @implNote this service method takes care of fetching all the application

@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.magicwand.entity.Plan;
+import com.magicwand.entity.Project;
 import com.magicwand.entity.Role;
+import com.magicwand.exceptions.ProjectNotFoundException;
+import com.magicwand.exceptions.RoleNotFoundException;
 import com.magicwand.repository.RoleRepository;
 
 
@@ -39,8 +42,12 @@ public class RoleService {
 	     * 
 	     */
 	    
-	    public Optional<Role> findByRoleId(Integer roleId) {
-	    	return repository.findById(roleId);
+	    public Optional<Role> findByRoleId(Integer roleId)throws RoleNotFoundException {
+	    	Optional<Role> role = repository.findById(roleId);
+	    	if (!role.isPresent()) {
+				throw new RoleNotFoundException("Role Not found in role Repository");
+			}
+			return role;
 	    }
 	    
 		/**

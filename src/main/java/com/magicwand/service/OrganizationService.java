@@ -5,8 +5,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.magicwand.entity.Application;
 import com.magicwand.entity.Organization;
 import com.magicwand.entity.Role;
+import com.magicwand.exceptions.ApplicationNotFoundException;
+import com.magicwand.exceptions.OrganizationNotFoundException;
 import com.magicwand.repository.OrganizationRepository;
 import com.magicwand.repository.RoleRepository;
 
@@ -39,8 +42,13 @@ public class OrganizationService {
      * 
      */
     
-    public Optional<Organization> findByOrgId(Integer orgId) {
-    	return repository.findById(orgId);
+    public Optional<Organization> findByOrgId(Integer orgId)throws OrganizationNotFoundException {
+    	Optional<Organization> organization = repository.findById(orgId);
+    	
+    	if (!organization.isPresent()) {
+			throw new OrganizationNotFoundException("Organization Not found in organization Repository");
+		}
+		return organization;
     }
     
 	/**

@@ -5,8 +5,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.magicwand.entity.Organization;
 import com.magicwand.entity.Plan;
 import com.magicwand.entity.Registration;
+import com.magicwand.exceptions.OrganizationNotFoundException;
+import com.magicwand.exceptions.PlanNotFoundException;
 import com.magicwand.repository.PlanRepository;
 
 /**
@@ -40,8 +43,12 @@ public class PlanService {
      * 
      */
     
-    public Optional<Plan> findByPlanId(Integer regnId) {
-    	return repository.findById(regnId);
+    public Optional<Plan> findByPlanId(Integer planId)throws PlanNotFoundException {
+    	Optional<Plan> plan = repository.findById(planId);
+    	if (!plan.isPresent()) {
+			throw new PlanNotFoundException("Plan Not found in plan Repository");
+		}
+		return plan;
     }
     
 	/**

@@ -3,15 +3,19 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.magicwand.entity.Plan;
 import com.magicwand.entity.Role;
+import com.magicwand.exceptions.ProjectNotFoundException;
+import com.magicwand.exceptions.RoleNotFoundException;
 import com.magicwand.service.RoleService;
 
 
@@ -46,7 +50,12 @@ public class RoleController {
      */
     @GetMapping("/getRoleById/{roleId}")
     public Optional<Role> findRoleById(@PathVariable Integer roleId) {
+    	try {
     	return service.findByRoleId(roleId);
+    	}
+    	catch (RoleNotFoundException ex) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getMessage());
+		}
     }
 
     /**

@@ -1,14 +1,19 @@
 package com.magicwand.controller;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.magicwand.entity.Project;
+import com.magicwand.exceptions.PlanNotFoundException;
+import com.magicwand.exceptions.ProjectNotFoundException;
 import com.magicwand.service.ProjectService;
 
 
@@ -42,8 +47,13 @@ public class ProjectController {
      * @return an Object of project.
      */
     @GetMapping("/findByProjectId/{project_id}")
-    public Project findByProject_Id(@PathVariable Integer project_id) {
+    public Optional<Project> findByProject_Id(@PathVariable Integer project_id) {
+    	try {
     	return service.findByProject_Id(project_id);
+    	}
+    	catch (ProjectNotFoundException ex) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getMessage());
+		}
     }
     
     /**

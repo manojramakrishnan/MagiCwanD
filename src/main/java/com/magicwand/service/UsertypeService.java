@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.magicwand.entity.Plan;
+import com.magicwand.entity.Role;
 import com.magicwand.entity.Usertype;
+import com.magicwand.exceptions.RoleNotFoundException;
+import com.magicwand.exceptions.UsertypeNotFoundException;
 import com.magicwand.repository.UsertypeRepository;
 /**
  * 
@@ -38,8 +41,12 @@ public class UsertypeService {
      * 
      */
     
-    public Optional<Usertype> findByUsertypeId(Integer usertypeId) {
-    	return repository.findById(usertypeId);
+    public Optional<Usertype> findByUsertypeId(Integer usertypeId)throws UsertypeNotFoundException {
+    	Optional<Usertype> usertype = repository.findById(usertypeId);
+    	if (!usertype.isPresent()) {
+			throw new UsertypeNotFoundException("Usertype Not found in usertype Repository");
+		}
+		return usertype;
     }
     
 	/**

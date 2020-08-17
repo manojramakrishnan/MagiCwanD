@@ -1,10 +1,14 @@
 package com.magicwand.service;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.magicwand.entity.Plan;
 import com.magicwand.entity.Project;
+import com.magicwand.exceptions.PlanNotFoundException;
+import com.magicwand.exceptions.ProjectNotFoundException;
 import com.magicwand.repository.ProjectRepository;
 
 
@@ -38,9 +42,13 @@ public class ProjectService {
 	     * 
 	     */
 	    //@Qualifier(value = "com.magicwand.repository.UserRepositoryImpl")
-	    public Project findByProject_Id(Integer project_id) {
-	    	System.err.println("project in controller"+project_id);
-	    	return repository.findByProject_Id(project_id);
+	    public Optional<Project> findByProject_Id(Integer project_id)throws ProjectNotFoundException {
+	    	//System.err.println("project in controller"+project_id);
+	    	Optional<Project> project = repository.findById(project_id);
+	    	if (!project.isPresent()) {
+				throw new ProjectNotFoundException("Project Not found in project Repository");
+			}
+			return project;
 	    }
 
 	    /**

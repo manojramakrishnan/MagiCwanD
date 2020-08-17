@@ -3,14 +3,18 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.magicwand.entity.Plan;
 import com.magicwand.entity.Registration;
+import com.magicwand.exceptions.OrganizationNotFoundException;
+import com.magicwand.exceptions.PlanNotFoundException;
 import com.magicwand.service.PlanService;
 
 /**
@@ -46,7 +50,12 @@ public class PlanController {
      */
     @GetMapping("/findByPlanId/{planId}")
     public Optional<Plan> findByReg_Id(@PathVariable Integer planId) {
+    	try {
     	return service.findByPlanId(planId);
+    	}
+    	catch (PlanNotFoundException ex) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getMessage());
+		}
     }
 
     /**
